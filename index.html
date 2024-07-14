@@ -224,7 +224,7 @@
     </div>
     <footer class="footer">
         <p>&copy; 2024 KINGX. All rights reserved.</p>
-        <p><a href="#about">关于我</a> | <a href="#resume">项目</a> | <a href="#skills">技能</a></p>
+        <p><a href="#about">关于我</a> | <a href="#resume">项目</a></p>
         <p>电话: 123-456-7890 | 邮箱: laband@foxmail.com</p>
     </footer>
 
@@ -257,19 +257,6 @@
         function easeInOutCubic(t) {
             return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         }
-
-        // 设置技能水平条动画
-        document.addEventListener('DOMContentLoaded', function () {
-            const skillLevels = document.querySelectorAll('.skill-level');
-
-            skillLevels.forEach(skill => {
-                const width = skill.style.width;
-                skill.style.width = '0%';
-                setTimeout(() => {
-                    skill.style.width = width;
-                }, 500);
-            });
-        });
     </script>
 </body>
 </html>
