@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小爱通黑化版</title>
+    <style>
+        /* 通用样式 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+        header img {
+            height: 40px; /* 调整 logo 的高度 */
+            margin-right: 10px; /* 添加 logo 右侧间距 */
+        }
+
+        /* 主内容区域 */
+        main {
+            display: flex;
+            flex: 1;
+        }
+
+        /* 按钮区域 */
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button-container button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #007BFF; /* 蓝色背景 */
+            color: black; /* 黑色字体 */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* 添加放大效果 */
+        }
+        .button-container button:hover {
+            background-color: #0056b3; /* 鼠标悬停时的背景色 */
+            transform: scale(1.1); /* 鼠标悬停时放大 */
+        }
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 200px;
+            background-color: #fff; /* 背景色改为白色 */
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+            transition: transform 0.3s ease; /* 添加非线性动画 */
+            transform: translateY(0); /* 初始位置 */
+            position: sticky;
+            top: 20px;
+        }
+        .sidebar:hover {
+            transform: translateY(-5px); /* 悬停时微微上移 */
+        }
+        .sidebar h3 {
+            margin-bottom: 20px; /* 加大标题下方间距 */
+            font-size: 18px;
+            color: #333; /* 标题颜色为深灰色 */
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #666; /* 链接颜色为灰色 */
+            transition: background-color 0.3s ease, color 0.3s ease; /* 添加过渡效果 */
+        }
+        .sidebar a:hover {
+            background-color: #f0f0f0; /* 悬停时背景色 */
+            color: #333; /* 悬停时文字颜色为深灰色 */
+        }
+
+        /* 主内容区域样式 */
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            margin-bottom: 20px;
+            border-bottom: 2px solid #333;
+            display: inline-block;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #575757;
+        }
+        p {
+            margin-top: 10px;
+        }
+
+        /* 响应式调整 */
+        @media only screen and (max-width: 600px) {
+            .sidebar {
+                display: none; /* 在小屏幕上隐藏侧边栏 */
+            }
+            .content {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo2.png" alt="Logo"> <!-- 添加 logo 图片 -->
+        <h1>小爱通黑化版</h1>
+    </header>
+    <main>
+        <aside class="sidebar">
+            <h3>操作总览</h3>
+            <ul>
+                <li><a href="#section1">示例图片</a></li>
+                <li><a href="#section2">粘贴你的网址</a></li>
+                <li><a href="#section3">步骤说明</a></li>
+                <li><a href="#section4">步骤演示视频</a></li>
+                <li><a href="#section5">完成！</a></li>
+            </ul>
+        </aside>
+        <section class="content">
+            <div class="section" id="section1">
+                <h2>示例图片</h2>
+                <img src="eg.png" alt="Your Image"> <!-- 添加图片 -->
+            </div>
+
+            <div class="section" id="section2">
+                <h2>粘贴你的网址</h2>
+                <div class="form-container">
+                    <label for="urlInput">请输入网址：</label><br>
+                    <input type="text" id="urlInput" name="urlInput"><br>
+                    <button onclick="redirectToPaxy()">提取并跳转</button>
+                    <p id="result"></p>
+                </div>
+            </div>
+
+            <div class="section" id="section3">
+                <h2>步骤说明</h2>
+                <p>在上面的输入框中粘贴网址，点击“提取并跳转”按钮。</p>
+                <p>如果成功匹配到学生ID，则将跳转至对应学生ID的页面；否则会显示未找到匹配的信息。</p>
+            </div>
+
+            <div class="section" id="section4">
+                <h2>步骤演示视频</h2>
+                <!-- 在这里添加步骤演示视频的嵌入代码 -->
+                <iframe width="560" height="315" src="eg.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="section" id="section5">
+                <h2>完成！</h2>
+                <p>恭喜你已完成！</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function redirectToPaxy() {
+            const urlInput = document.getElementById('urlInput').value;
+            const match = urlInput.match(/student_id-(\d{5})/); // 匹配形如 student_id-数字 的五位数
+            if (match && match.length > 1) {
+                const number = match[1]; // 获取匹配到的五位数部分
+                const redirectTo = `https://paxy.xiaoaitong.com/mb-device:phone_book/student_id-${number}`;
+                window.location.href = redirectTo;
+            } else {
+                document.getElementById('result').textContent = '未找到匹配的五位数';
+            }
+        }
+    </script>
+</body>
+</html>
