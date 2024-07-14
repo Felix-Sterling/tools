@@ -165,12 +165,28 @@
             </div>
 
             <div class="section" id="section2">
-                <h2>粘贴你的网址</h2>
-                <div class="form-container">
-                    <label for="urlInput">请输入网址：</label><br>
-                    <input type="text" id="urlInput" name="urlInput"><br>
-                    <button onclick="redirectToPaxy()">提取并跳转</button>
-                    <p id="result"></p>
+                        <div class="section" id="section2">
+                        <h2>粘贴你的网址</h2>
+                        <div class="form-container">
+                            <label for="urlInput">请输入网址：</label><br>
+                            <input type="text" id="urlInput" name="urlInput"><br>
+                            <button onclick="redirectToPaxy()">提取并跳转</button>
+                            <p id="result"></p>
+                        
+                            <script>
+                                function redirectToPaxy() {
+                                    const urlInput = document.getElementById('urlInput').value;
+                                    const match = urlInput.match(/student_id-(\d{5})/); // 匹配形如 student_id-数字 的五位数
+                                    if (match && match.length > 1) {
+                                        const number = match[1]; // 获取匹配到的五位数部分
+                                        const redirectTo = https://paxy.xiaoaitong.com/mb-device:phone_book/student_id-${number};
+                                        window.location.href = redirectTo;
+                                    } else {
+                                        document.getElementById('result').textContent = '未找到匹配的五位数';
+                                    }
+                                }
+                            </script>
+                        </div>
                 </div>
             </div>
 
@@ -180,7 +196,6 @@
                 <p>在上面的输入框中粘贴网址，点击“提取并跳转”按钮。</p>
                 <p>如果成功匹配到学生ID，则将跳转至对应学生ID的页面；否则会显示未找到匹配的信息。</p>
             </div>
-
             <div class="section" id="section4">
                 <h2>步骤演示视频</h2>
                 <!-- 在这里添加步骤演示视频的嵌入代码 -->
