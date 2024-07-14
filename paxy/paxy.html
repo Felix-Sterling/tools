@@ -163,6 +163,7 @@
         </aside>
         <section class="content">
             <div class="section" id="section1">
+                <h2>示例图片</h2>
                 <img src="eg.png" alt="Your Image">
             </div>
 
@@ -199,7 +200,7 @@
         function redirectToPaxy() {
             const urlInput = document.getElementById('urlInput').value.trim(); // 去除输入两端空格
             if (urlInput === '') {
-                document.getElementById('result').textContent = '请输入网址';
+                alert('请输入网址');
                 return;
             }
             const match = urlInput.match(/student_id-(\d{5})/); // 匹配形如 student_id-数字 的五位数
@@ -208,7 +209,7 @@
                 const redirectTo = `https://paxy.xiaoaitong.com/mb-device:phone_book/student_id-${number}`;
                 window.location.href = redirectTo;
             } else {
-                document.getElementById('result').textContent = '未找到匹配的五位数';
+                alert('未找到匹配的五位数');
             }
         }
     </script>
