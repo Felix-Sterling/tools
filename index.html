@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>梅川库子的工具箱</title>
+    <!-- 网站标签图标 -->
+    <link rel="png" href="index/logo2.png" type="image/png">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -226,31 +228,28 @@
             <h2>ITEMS</h2>
             <div class="timeline">
                 <div>
-                    <img src="index/logo1.png" alt="Project Icon" class="project-icon">
-                    <h3>小爱通</h3>
-                    <p><strong>日期:</strong> From 7th,Oct.,2022 to 18th,Nov.,2023</p>
-                    <p>已老实求放过</p>
-                    <img src="index/gif1.png" alt="Project Icon" class="project-gif">
-                </div>
-                <div>
                     <img src="index/logo2.png" alt="Project Icon" class="project-icon">
                     <h3>小爱通黑金版(测试版已上线)</h3>
-                    <p><strong>日期:</strong> Present to future</p>
-                    <p>我又回来了</p>
                     <div class="button-container">
                         <button onclick="redirectToPaxy()">点击跳转</button>
                     </div>
                 </div>
                 <div>
                     <img src="index/logo2.png" alt="Project Icon" class="project-icon">
-                    <h3>拨号盘(即将上线)</h3>
-                    <p><strong>日期:</strong> From 17th,Jul.,2024</p>
+                    <h3>My Free MP3 跳转服务</h3>
+                    <div class="button-container">
+                        <button onclick="redirectTomusic()">点击跳转</button>
+                    </div>
                 </div>
             </div>
         </section>
         <section id="log" class="section">
             <h2>更新日志</h2>
             <div class="log-container">
+                <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-20</p>
+                    <p>增加访问验证（防小人）</p>
+                </div>
                 <div class="log-entry">
                     <p><strong>日期:</strong> 2024-07-17</p>
                     <p>新增拨号盘项目</p>
@@ -294,6 +293,10 @@
 
         function redirectToPaxy() {
             window.open('paxy/paxy.html', '_blank');
+        }
+
+        function redirectTomusic() {
+            window.open('https://tools.liumingye.cn/music/#/', '_blank');
         }
 
         function easeInOutCubic(t) {
