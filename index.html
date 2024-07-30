@@ -3,94 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>密码验证</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #ffeaaf, #fff1a0);
-        }
-        .password-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        .password-container h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .password-container input {
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-            width: 100%;
-            max-width: 300px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .password-container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .password-container button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-        .password-container p {
-            margin-top: 10px;
-            color: red;
-            display: none;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
+    <title>梅川库子的工具箱</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        
+        const firebaseConfig = {
+          apiKey: "AIzaSyCIBxOjxlrwoEWXWHwO_RA6UbQwveBlURA",
+          authDomain: "tools-ce91a.firebaseapp.com",
+          projectId: "tools-ce91a",
+          storageBucket: "tools-ce91a.appspot.com",
+          messagingSenderId: "833743381934",
+          appId: "1:833743381934:web:b3cd1655e069a6d068943f",
+          measurementId: "G-WXXDDY2VGQ"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // 监听用户登录状态变化
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                // 用户未登录，重定向到登录页面
+                window.location.href = 'login.html';
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+        });
+
+        document.getElementById('logout-button').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                // 注销成功后重定向到登录页面
+                window.location.href = 'login.html';
+            }).catch((error) => {
+                console.error('注销失败:', error);
+            });
+        });
+    </script>
+      
+    <!-- 图标 -->
+    <link rel="png" href="logo2.png" type="image/png">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="password-container">
-        <h2>请输入密码</h2>
-        <input type="password" id="password" placeholder="Password">
-        <button onclick="checkPassword()">提交</button>
-        <p id="error-message">密码错误，请重试。</p>
+    <header>
+        <h1>HELLO I'M</h1>
+        <p>Felix-Sterling</p>
+        <p>STUDENT 梅川库子</p>
+    </header>
+    <nav>
+        <a href="#about">关于我</a>
+        <a href="#resume">项目</a>
+        <a href="#log">更新日志</a>
+        <a href="test/test.html" target="_blank">测试页</a>
+        <a href="paxy/paxy.html" target="_blank">我要加号码</a>
+    </nav>
+    <div class="container">
+        <section id="about" class="section">
+            <div class="profile">
+                <img src="profile-picture.jpg" alt="Profile Picture">
+                <div>
+                    <h2>关于我</h2>
+                    <p><strong>姓名:</strong> 梅川库子</p>
+                    <p><strong>出生日期:</strong> 22 June 2024</p>
+                    <p><strong>电话:</strong> 0859-0000000</p>
+                    <p><strong>地址:</strong> 1 Lanhua Road, Guizhou, China</p>
+                    <p><strong>邮箱:</strong> laband@foxmail.com</p>
+                    <p>Hello World</p>
+                </div>
+            </div>
+        </section>
+        <section id="resume" class="section">
+            <h2>ITEMS</h2>
+            <div class="timeline">
+                <div>
+                    <img src="logo2.png" alt="Project Icon" class="project-icon">
+                    <h3>小爱通黑金版(测试版已上线)</h3>
+                    <div class="button-container">
+                        <button onclick="redirectToPaxy()">点击跳转</button>
+                    </div>
+                </div>
+                <div>
+                    <img src="logo2.png" alt="Project Icon" class="project-icon">
+                    <h3>My Free MP3 跳转服务(已和谐)</h3>
+                    <div class="button-container">
+                        <button onclick="redirectTomusic()">点击跳转</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="log" class="section">
+            <h2>更新日志</h2>
+            <div class="log-container">
+                <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-230</p>
+                    <p>移除了用户验证，添加了用户登录</p>
+                </div>
+                 <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-20</p>
+                    <p>修复了一部分bug和跳转404的问题</p>
+                </div>
+                <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-20</p>
+                    <p>增加访问验证（防小人）</p>
+                </div>
+                <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-17</p>
+                    <p>新增拨号盘项目</p>
+                </div>
+                <div class="log-entry">
+                    <p><strong>日期:</strong> 2024-07-16</p>
+                    <p>添加了更新日志部分。</p>
+                </div>
+            </div>
+        </section>
     </div>
+    <footer class="footer">
+        <p>&copy; 2024 KINGX. All rights reserved.</p>
+        <p><a href="#about">关于我</a> | <a href="#resume">项目</a> | <a href="#log">更新日志</a></p>
+        <p>电话: 123-456-7890 | 邮箱: laband@foxmail.com</p>
+    </footer>
 
     <script>
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            const correctPassword = '2077'; // 在此处设置你的密码
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.add('active');
+            });
+        });
 
-            if (password === correctPassword) {
-                window.location.href = 'index/home.html';
-            } else {
-                document.getElementById('error-message').style.display = 'block';
-            }
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest',
+                    });
+                }
+            });
+        });
+
+        function redirectToPaxy() {
+            window.open('paxy/paxy.html', '_blank');
+        }
+
+        function redirectTomusic() {
+            window.open('https://tools.liumingye.cn/music/#/', '_blank');
+        }
+
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         }
     </script>
+    
+
+    
 </body>
 </html>
