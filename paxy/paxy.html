@@ -4,163 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小爱通黑化版</title>
-    <style>
-        /* 通用样式 */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            margin: 0;
-        }
-        a {
-            text-decoration: none;
-            color: #007BFF; /* 蓝色链接 */
-        }
-
-        /* 头部样式 */
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: space-between; /* 添加右对齐 */
-        }
-        header img {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        /* 登录提示样式 */
-        .login-tip {
-            background-color: #ffc107; /* 橙黄色背景 */
-            color: #333;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        /* 主内容区域 */
-        main {
-            display: flex;
-            flex: 1;
-            padding: 20px;
-        }
-
-        /* 侧边栏样式 */
-        .sidebar {
-            width: 200px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 20px;
-        }
-        .sidebar h3 {
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #333;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar li {
-            margin-bottom: 10px;
-        }
-        .sidebar a {
-            display: block;
-            padding: 8px 12px;
-            font-size: 14px;
-            color: #666;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .sidebar a:hover {
-            background-color: #f0f0f0;
-            color: #333;
-        }
-
-        /* 主内容区域样式 */
-        .content {
-            flex: 1;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-        .section h2 {
-            margin-bottom: 15px;
-            border-bottom: 2px solid #333;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input[type="text"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        p {
-            margin-top: 10px;
-        }
-
-        /* 响应式调整 */
-        @media only screen and (max-width: 600px) {
-            .sidebar {
-                display: none;
-            }
-            .content {
-                padding: 10px;
-            }
-            input[type="text"] {
-                width: calc(100% - 20px);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
+        <div class="header-content">
+            <img src="logo2.png" alt="Logo">
+            <h1>小爱通黑化版</h1>
+            <a href="https://paxy.xiaoaitong.com" target="_blank" rel="noopener noreferrer">
+                <button>点击登录</button>
+            </a>
+        </div>
         <div class="login-tip">请先登录！！！！</div>
-        <a href="https://paxy.xiaoaitong.com" target="_blank" rel="noopener noreferrer"><button>点击登录</button></a>
-        <img src="logo2.png" alt="Logo">
-        <h1>小爱通黑化版</h1>
     </header>
+    <button class="sidebar-toggle" onclick="toggleSidebar()">操作总览</button>
+    <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" onclick="toggleSidebar()">×</button>
+        <h3>操作总览</h3>
+        <ul>
+            <li><a href="#section1">示例图片</a></li>
+            <li><a href="#section2">粘贴你的网址</a></li>
+            <li><a href="#section3">步骤说明</a></li>
+            <li><a href="#section4">步骤演示视频</a></li>
+            <li><a href="#section5">完成！</a></li>
+        </ul>
+    </aside>
     <main>
-        <aside class="sidebar">
-            <h3>操作总览</h3>
-            <ul>
-                <li><a href="#section1">示例图片</a></li>
-                <li><a href="#section2">粘贴你的网址</a></li>
-                <li><a href="#section3">步骤说明</a></li>
-                <li><a href="#section4">步骤演示视频</a></li>
-                <li><a href="#section5">完成！</a></li>
-            </ul>
-        </aside>
         <section class="content">
             <div class="section" id="section3">
                 <h2>步骤说明</h2>
@@ -171,7 +40,7 @@
             
             <div class="section" id="section1">
                 <h2>示例图片</h2>
-                <img src="eg.png" alt="Your Image">
+                <img src="eg.png" alt="示例图片">
             </div>
 
             <div class="section" id="section2">
@@ -186,7 +55,6 @@
 
             <div class="section" id="section4">
                 <h2>步骤演示视频</h2>
-                <!-- 在这里添加步骤演示视频的嵌入代码 -->
                 <iframe width="100%" height="315" src="eg.mp4" frameborder="0" allowfullscreen></iframe>
             </div>
 
@@ -196,17 +64,21 @@
             </div>
         </section>
     </main>
-
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
         function redirectToPaxy() {
-            const urlInput = document.getElementById('urlInput').value.trim(); // 去除输入两端空格
+            const urlInput = document.getElementById('urlInput').value.trim();
             if (urlInput === '') {
                 alert('请输入网址');
                 return;
             }
-            const match = urlInput.match(/student_id-(\d{5})/); // 匹配形如 student_id-数字 的五位数
+            const match = urlInput.match(/student_id-(\d{5})/);
             if (match && match.length > 1) {
-                const number = match[1]; // 获取匹配到的五位数部分
+                const number = match[1];
                 const redirectTo = `https://paxy.xiaoaitong.com/mb-device:phone_book/student_id-${number}`;
                 window.location.href = redirectTo;
             } else {
