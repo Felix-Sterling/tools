@@ -1,302 +1,125 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>梅川库子的工具箱</title>
-    <link rel="png" href="logo2.png" type="image/png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/2.19.0/parse.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parse/2.19.0/parse.min.js"></script>
-    <script>
-        Parse.initialize("FWC0tvD0gu1hCWFQ6ZLBTTzcX6ffGPy2w5EOH5A5", "Y5RpQ1FNKnobJBOGlOcfYNYcUYKG5vH2WMYeafAE");
-        Parse.serverURL = "https://parseapi.back4app.com/";
+<!doctype html>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>网页内容审查中</title>
+<style>
+    :root {
+        --colorDefaultTextColor: #A3A9AC;
+        --colorDefaultTextColorCard: #2D3B41;
+        --colorBgApp: rgb(14, 30, 37);
+        --colorBgInverse: hsl(175, 48%, 98%);
+        --colorTextMuted: rgb(100, 110, 115);
+        --colorError: #D32254;
+        --colorBgCard: #fff;
+        --colorShadow: #0e1e251f;
+        --colorErrorText: rgb(142, 11, 48);
+        --colorCardTitleCard: #2D3B41;
+        --colorStackText: #222;
+        --colorCodeText: #F5F5F5
+    }
 
-        // 严格的邮箱格式验证，要求以 .com 结尾
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/;
-        
-        const errorTranslations = {
-        "username/password is required": "用户名/密码是必需的",
-        "Username is taken": "用户名已被使用",
-        "Email is invalid": "无效的邮箱地址",
-        "Email is required": "邮箱是必需的",
-        "Password is required": "密码是必需的",
-        "Account already exists with this username": "此用户名的账户已存在",
-        "Invalid username/password combination": "用户名/密码组合无效",
-        "Email verification is required": "需要邮箱验证",
-        "Account not found": "找不到账户",
-        "Incorrect password": "密码错误",
-        // 你可以在这里添加更多的错误消息翻译
-        };
-        function translateError(errorMessage) {
-        return errorTranslations[errorMessage] || errorMessage;
-        } 
-        
-        
-        async function signUp() {
-            const username = document.getElementById('signup-username').value;
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const confirmPassword = document.getElementById('signup-confirm-password').value;
+    body {
+        font-family: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+        background: #34383c;
+        color: #fff;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        line-height: 1.5
+    }
 
-            if (!emailRegex.test(email)) {
-                alert('邮箱格式无效，请使用正确的格式，如example@domain.com');
-                return;
-            }
+    h1 {
+        margin: 0;
+        font-size: 1.375rem;
+        line-height: 1.2
+    }
 
-            if (password !== confirmPassword) {
-                alert('密码和确认密码不匹配。');
-                return;
-            }
+    .main {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw
+    }
 
-            const user = new Parse.User();
-            user.set("username", username);
-            user.set("email", email);
-            user.set("password", password);
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        max-width: 500px;
+        padding: 24px;
+        background: #fff;
+        color: #0e1e25;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(14,30,37,.16)
+    }
 
-            try {
-                await user.signUp();
-                alert('注册成功! 请检查你的邮箱并验证账户。');
-                document.getElementById('signup-form').reset();
-            } catch (error) {
-                alert('错误: ' + translateError(error.message) + '。请联系网站管理员处理。');
-            }
-        }
+    a {
+        margin: 0;
+        font-weight: 600;
+        line-height: 24px;
+        color: #054861
+    }
 
-        
+    a svg {
+        position: relative;
+        top: 2px
+    }
 
-        async function logIn() {
-            const username = document.getElementById('login-username').value;
-            const password = document.getElementById('login-password').value;
+    a:hover,a:focus {
+        text-decoration: none
+    }
 
-            try {
-                await Parse.User.logIn(username, password);
-                alert('登录成功!');
-                document.getElementById('login-form').reset();
-                document.getElementById('auth-modal').style.display = 'none';
-                enableInteractions();
-            } catch (error) {
-                alert('错误: ' + translateError(error.message) + '。请联系网站管理员处理。');
-            }
-        }
+    a:hover svg path {
+        fill: #007067
+    }
 
+    p:last-of-type {
+        margin-bottom: 0
+    }
 
-        
-        function logOut() {
-            Parse.User.logOut().then(() => {
-                alert('登出成功!');
-                disableInteractions();
-                document.getElementById('login-button').style.display = 'block';
-            });
-        }
-
-        function showAuthModal() {
-            document.getElementById('auth-modal').style.display = 'block';
-        }
-
-        function disableInteractions() {
-            document.querySelectorAll('.interactive').forEach(el => {
-                el.disabled = true;
-                if (el.tagName === 'A') {
-                    el.classList.add('disabled-link');
-                }
-            });
-        }
-
-        function enableInteractions() {
-            document.querySelectorAll('.interactive').forEach(el => {
-                el.disabled = false;
-                if (el.tagName === 'A') {
-                    el.classList.remove('disabled-link');
-                }
-            });
-        }
-
-        function toggleAuthForms() {
-            const signupForm = document.getElementById('signup-form-container');
-            const loginForm = document.getElementById('login-form-container');
-            if (signupForm.style.display === 'none') {
-                signupForm.style.display = 'block';
-                loginForm.style.display = 'none';
-            } else {
-                signupForm.style.display = 'none';
-                loginForm.style.display = 'block';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentUser = Parse.User.current();
-            if (currentUser) {
-                enableInteractions();
-                document.getElementById('login-button').style.display = 'none';
-            } else {
-                disableInteractions();
-            }
-        });
-    </script>
-</head>
-<body>
-    <header>
-        <h1>HELLO I'M</h1>
-        <p>Felix-Sterling</p>
-        <p>STUDENT 梅川库子</p>
-    </header>
-    <nav>
-        <a href="#about" class="interactive">关于我</a>
-        <a href="#resume" class="interactive">项目</a>
-        <a href="#log" class="interactive">更新日志</a>
-        <a href="test/test.html" target="_blank" class="interactive">测试页</a>
-        <a href="paxy/paxy.html" target="_blank" class="interactive">我要加号码</a>
-        <button id="login-button" onclick="showAuthModal()">登录</button>
-        <button onclick="logOut()" class="interactive">登出</button>
-    </nav>
-    <div class="container">
-        <section id="about" class="section">
-            <div class="profile">
-                <img src="profile-picture.jpg" alt="Profile Picture">
-                <div>
-                    <h2>关于我</h2>
-                    <p><strong>姓名:</strong> 梅川库子</p>
-                    <p><strong>出生日期:</strong> 22 June 2024</p>
-                    <p><strong>电话:</strong> 0859-0000000</p>
-                    <p><strong>地址:</strong> 1 Lanhua Road, Guizhou, China</p>
-                    <p><strong>邮箱:</strong> laband@foxmail.com</p>
-                    <p>Hello World</p>
-                </div>
-            </div>
-        </section>
-        <section id="resume" class="section">
-            <h2>ITEMS</h2>
-            <div class="timeline">
-                <div>
-                    <img src="logo2.png" alt="Project Icon" class="project-icon">
-                    <h3>小爱通黑金版(测试版已上线)</h3>
-                    <div class="button-container">
-                        <button onclick="redirectToPaxy()" class="interactive">点击跳转</button>
-                    </div>
-                </div>
-                <div>
-                    <img src="logo2.png" alt="Project Icon" class="project-icon">
-                    <h3>My Free MP3 跳转服务</h3>
-                    <div class="button-container">
-                        <button onclick="redirectTomusic()" class="interactive">点击跳转</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="log" class="section">
-            <h2>更新日志</h2>
-            <div class="log-container">
-                <div class="log-entry">
-                    <p><strong>日期:</strong> 2024-07-20</p>
-                    <p>增加访问验证（防小人）</p>
-                </div>
-                <div class="log-entry">
-                    <p><strong>日期:</strong> 2024-07-17</p>
-                    <p>新增拨号盘项目</p>
-                </div>
-                <div class="log-entry">
-                    <p><strong>日期:</strong> 2024-07-16</p>
-                    <p>添加了更新日志部分。</p>
-                </div>
-            </div>
-        </section>
-    </div>
-    <footer class="footer">
-        <p>&copy; 2024 KINGX. All rights reserved.</p>
-        <p><a href="#about" class="interactive">关于我</a> | <a href="#resume" class="interactive">项目</a> | <a href="#log" class="interactive">更新日志</a></p>
-        <p>电话: 123-456-7890 | 邮箱: laband@foxmail.com</p>
-    </footer>
-    
-    <!-- Authentication Modal -->
-    <div id="auth-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="document.getElementById('auth-modal').style.display='none'">&times;</span>
-            <div class="auth-container">
-                <div class="auth-form" id="signup-form-container">
-                    <h3>注册</h3>
-                    <form id="signup-form" onsubmit="event.preventDefault(); signUp();">
-                        <label for="signup-username">用户名:</label>
-                        <input type="text" id="signup-username" required>
-                        <label for="signup-email">邮箱:</label>
-                        <input type="email" id="signup-email" required>
-                        <label for="signup-password">密码:</label>
-                        <input type="password" id="signup-password" required>
-                        <label for="signup-confirm-password">确认密码:</label>
-                        <input type="password" id="signup-confirm-password" required>
-                        <button type="submit">注册</button>
-                    </form>
-                    <p>已有账号？<a href="#" onclick="toggleAuthForms()">立即登录</a></p>
-                </div>
-                <div class="auth-form" id="login-form-container" style="display: none;">
-                    <h3>登录</h3>
-                    <form id="login-form" onsubmit="event.preventDefault(); logIn();">
-                        <label for="login-username">用户名:</label>
-                        <input type="text" id="login-username" required>
-                        <label for="login-password">密码:</label>
-                        <input type="password" id="login-password" required>
-                        <button type="submit">登录</button>
-                    </form>
-                    <p>还没有账号？<a href="#" onclick="toggleAuthForms()">立即注册</a></p>
-                </div>
-            </div>
+    .inline-code {
+        display: inline-block;
+        background-color: var(--colorCodeText);
+        color: var(--colorStackText);
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 1rem;
+        overflow-wrap: anywhere
+    }
+</style>
+<div class=main>
+    <div class=card>
+        <div class=header>
+            <h1>网页内容审查中</h1>
         </div>
-    </div>
+        <div class=body>
+            <p>该网页违反相关规定，正在接受审查。
+            <p>
+                <a id=back-link href=/>
+                <svg width="16" height="16" viewBox="0 0 16 16" style="margin-right:4px">
+                    <path fill="#007067" d="M11.9998836 4.09370803 8.55809517 7.43294953c-.32278058.31316345-.32278058.82093783.0 1.13398816L12 11.9062921 9.84187871 14 4.24208544 8.56693751c-.32278059-.31305032-.32278059-.820824700000001.0-1.13398815L9.84199531 2 11.9998836 4.09370803z"/>
+                </svg>
+                返回
+</a><hr>
+<p>
+    If this is your site, and you weren't expecting a forbided view for this path,
+please visit 
+<a href="https://www.12377.cn/jbcx.html?tab=6">"forbided page" support guide</a>
+    for troubleshooting tips.
+<p style=color:var(--colorTextMuted)>
+    Internal ID:
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.add('active');
-            });
-        });
-
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-
-                if (targetElement) {
-                    e.preventDefault();
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                        inline: 'nearest',
-                    });
-                }
-            });
-        });
-
-        function redirectToPaxy() {
-            window.open('paxy/paxy.html', '_blank');
-        }
-
-        function redirectTomusic() {
-            window.open('https://tools.liumingye.cn/music/#/', '_blank');
-        }
-
-        function easeInOutCubic(t) {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        }
-
-        function scrollToSection(targetElement, duration = 1000) {
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const startPosition = window.pageYOffset;
-            const startTime = performance.now();
-
-            function animateScroll(currentTime) {
-                const elapsedTime = currentTime - startTime;
-                const progress = Math.min(elapsedTime / duration, 1);
-                const easeProgress = easeInOutCubic(progress);
-                window.scrollTo(0, startPosition + (targetPosition - startPosition) * easeProgress);
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateScroll);
-                }
-            }
-
-            requestAnimationFrame(animateScroll);
-        }
-    </script>
-</body>
-</html>
+    <span class="inline-code request-id">
+        <code>01J7YTPX14YYFNWPBBZ8FJ367M</code>
+    </span>
+</div></div></div><script>
+    (function() {
+        document.referrer && document.location.host && document.referrer.match(new RegExp("^https?://" + document.location.host)) && document.getElementById("back-link").setAttribute("href", document.referrer)
+    }
+    )()
+</script>
